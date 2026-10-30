@@ -297,6 +297,9 @@
     <ClCompile Include="src\hexeditor.cpp">
       <Filter>C/C++ Sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Exports.cpp">
+      <Filter>C/C++ Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gens.ico">
