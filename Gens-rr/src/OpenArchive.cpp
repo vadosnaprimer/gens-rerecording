@@ -11,6 +11,7 @@
 #include "G_dsound.h"
 #include "resource.h"
 #include "OpenArchive.h"
+#include <string>
 
 LRESULT CALLBACK ArchiveFileChooser(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static int s_archiveFileChooserResult = -1;
