@@ -815,13 +815,13 @@ void Refresh_CDC_State(void)
 	sprintf(Str_Tmp,"** CDC STATUS **");
 	Print_Text(Str_Tmp, 16, 200, 1, GREEN);
 
-	sprintf(GString, "COMIN=%.2X IFSTAT=%.2X DBC=%.4X", CDC.COMIN, CDC.IFSTAT, CDC.DBC);
+	sprintf(GString, "COMIN=%.2X IFSTAT=%.2X DBC=%.4X", CDC.COMIN, CDC.IFSTAT, CDC.DBC.N);
 	Print_Text(GString, strlen(GString), 162, 14, WHITE);
-	sprintf(GString, "HEAD=%.8X PT=%.4X WA=%.4X", CDC.HEAD, CDC.PT, CDC.WA);
+	sprintf(GString, "HEAD=%.8X PT=%.4X WA=%.4X", CDC.HEAD.N, CDC.PT.N, CDC.WA.N);
 	Print_Text(GString, strlen(GString), 162, 22, WHITE);
-	sprintf(GString, "STAT=%.8X CTRL=%.8X", CDC.STAT, CDC.CTRL);
+	sprintf(GString, "STAT=%.8X CTRL=%.8X", CDC.STAT.N, CDC.CTRL.N);
 	Print_Text(GString, strlen(GString), 162, 30, WHITE);
-	sprintf(GString, "DAC=%.4X IFCTRL=%.2X", CDC.DAC, CDC.IFCTRL);
+	sprintf(GString, "DAC=%.4X IFCTRL=%.2X", CDC.DAC.N, CDC.IFCTRL);
 	Print_Text(GString, strlen(GString), 162, 38, WHITE);
 }
 

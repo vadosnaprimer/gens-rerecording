@@ -432,7 +432,7 @@ void OpenRWRecentFile(int memwRFileNumber)
 		do {
 			fgets(Str_Tmp,1024,WatchFile);
 		} while (Str_Tmp[0] == '\n');
-		sscanf(Str_Tmp,"%*05X%*c%08X%*c%c%*c%c%*c%d",&(Temp.Address),&(Temp.Size),&(Temp.Type),&(Temp.WrongEndian));
+		sscanf(Str_Tmp,"%*05X%*c%08X%*c%c%*c%c%*c%d",&(Temp.Address),&(Temp.Size),&(Temp.Type),(int *)&(Temp.WrongEndian));
 		Temp.WrongEndian = 0;
 		char *Comment = strrchr(Str_Tmp,DELIM) + 1;
 		*strrchr(Comment,'\n') = '\0';
@@ -544,7 +544,7 @@ bool Load_Watches(bool clear, const char* filename)
 		do {
 			fgets(Str_Tmp,1024,WatchFile);
 		} while (Str_Tmp[0] == '\n');
-		sscanf(Str_Tmp,"%*05X%*c%08X%*c%c%*c%c%*c%d",&(Temp.Address),&(Temp.Size),&(Temp.Type),&(Temp.WrongEndian));
+		sscanf(Str_Tmp,"%*05X%*c%08X%*c%c%*c%c%*c%d",&(Temp.Address),&(Temp.Size),&(Temp.Type),(int *)&(Temp.WrongEndian));
 		Temp.WrongEndian = 0;
 		char *Comment = strrchr(Str_Tmp,DELIM) + 1;
 		*strrchr(Comment,'\n') = '\0';
