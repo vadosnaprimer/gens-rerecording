@@ -1760,13 +1760,13 @@ void CC_End_Callback(char mess[256])
 }
 #endif
 
-BOOL Init(HINSTANCE hInst, int nCmdShow)
+BOOL Init(/*HINSTANCE hInst, int nCmdShow*/)
 {
 	int i;
 
 	timeBeginPeriod(1);
 
-	InitDecoder();
+	//InitDecoder();
 
 	Net_Play = 0;
 	Full_Screen = -1;
@@ -1812,41 +1812,41 @@ BOOL Init(HINSTANCE hInst, int nCmdShow)
 	Window_Pos.x = 0;
 	Window_Pos.y = 0;
 
-	WndClass.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
-	WndClass.lpfnWndProc = WinProc;
-	WndClass.cbClsExtra = 0;
-	WndClass.cbWndExtra = 0;
-	WndClass.hInstance = hInst;
-	WndClass.hIcon = LoadIcon(hInst, MAKEINTRESOURCE(IDI_SONIC));
-	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	WndClass.hbrBackground = NULL;
-	WndClass.lpszMenuName = NULL;
-	WndClass.lpszClassName = "Gens";
+	//WndClass.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+	//WndClass.lpfnWndProc = WinProc;
+	//WndClass.cbClsExtra = 0;
+	//WndClass.cbWndExtra = 0;
+	//WndClass.hInstance = hInst;
+	//WndClass.hIcon = LoadIcon(hInst, MAKEINTRESOURCE(IDI_SONIC));
+	//WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	//WndClass.hbrBackground = NULL;
+	//WndClass.lpszMenuName = NULL;
+	//WndClass.lpszClassName = "Gens";
 
 	FrameCount=0;
 	LagCount = 0;
 	LagCountPersistent = 0;
 	frameSearchFrames = -1; frameSearchInitialized = false;
 
-	RegisterClass(&WndClass);
+	//RegisterClass(&WndClass);
 
-	ghInstance = hInst;
+	//ghInstance = hInst;
 
-	HWnd = CreateWindowEx(
-		NULL,
-		"Gens",
-		GENS_NAME " - Idle",
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		320 * 2,
-		240 * 2,
-		NULL,
-		NULL,
-		hInst,
-		NULL);
+	//HWnd = CreateWindowEx(
+	//	NULL,
+	//	"Gens",
+	//	GENS_NAME " - Idle",
+	//	WS_OVERLAPPEDWINDOW,
+	//	CW_USEDEFAULT,
+	//	CW_USEDEFAULT,
+	//	320 * 2,
+	//	240 * 2,
+	//	NULL,
+	//	NULL,
+	//	hInst,
+	//	NULL);
 
-	if (!HWnd) return FALSE;
+	//if (!HWnd) return FALSE;
 
 	Identify_CPU();
 	i = GetVersion();
@@ -1854,13 +1854,13 @@ BOOL Init(HINSTANCE hInst, int nCmdShow)
 	if (((i & 0xFF) > 4) || (i & 0x80000000)) WinNT_Flag = 0;
 	else WinNT_Flag = 1;
 
-	GetCurrentDirectory(1024, Gens_Path);
-	GetCurrentDirectory(1024, Language_Path);
-	strcpy(Manual_Path, "");
-	strcpy(CGOffline_Path, "");
+	//GetCurrentDirectory(1024, Gens_Path);
+	//GetCurrentDirectory(1024, Language_Path);
+	//strcpy(Manual_Path, "");
+	//strcpy(CGOffline_Path, "");
 
-	strcat(Gens_Path, "\\");
-	strcat(Language_Path, "\\language.dat");
+	//strcat(Gens_Path, "\\");
+	//strcat(Language_Path, "\\language.dat");
 
 	MSH2_Init();
 	SSH2_Init();
@@ -1872,51 +1872,51 @@ BOOL Init(HINSTANCE hInst, int nCmdShow)
 	PSG_Init(CLOCK_NTSC / 15, Sound_Rate);
 	PWM_Init();
 
-	Build_Main_Menu(); // needs to be before config is loaded so Gens_Menu_Width is valid when the render mode gets set
+	//Build_Main_Menu(); // needs to be before config is loaded so Gens_Menu_Width is valid when the render mode gets set
 
-	strcpy(Str_Tmp, Gens_Path);
-	strcat(Str_Tmp, "\\gens.cfg");
-	Load_Config(Str_Tmp, NULL);
+	//strcpy(Str_Tmp, Gens_Path);
+	//strcat(Str_Tmp, "\\gens.cfg");
+	//Load_Config(Str_Tmp, NULL);
 
-	ShowWindow(HWnd, nCmdShow);
+	//ShowWindow(HWnd, nCmdShow);
 
-	if (!Init_Input(hInst, HWnd))
-	{
-		End_Sound();
-		End_DDraw();
-		return FALSE;
-	}
+	//if (!Init_Input(hInst, HWnd))
+	//{
+	//	End_Sound();
+	//	End_DDraw();
+	//	return FALSE;
+	//}
 
 	Init_CD_Driver();
 	Init_Network();
 	Init_Tab();
-	Build_Main_Menu();
+	//Build_Main_Menu();
 
-	DragAcceptFiles(HWnd, TRUE);
+	//DragAcceptFiles(HWnd, TRUE);
 
-	SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, &SS_Actived, 0);
-	SystemParametersInfo(SPI_SETSCREENSAVEACTIVE, FALSE, NULL, 0);
+	//SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, &SS_Actived, 0);
+	//SystemParametersInfo(SPI_SETSCREENSAVEACTIVE, FALSE, NULL, 0);
 
-	switch(Gens_Priority)
-	{
-		case 0:
-			SetThreadPriority(hInst, THREAD_PRIORITY_BELOW_NORMAL);
-			break;
+	//switch(Gens_Priority)
+	//{
+	//	case 0:
+	//		SetThreadPriority(hInst, THREAD_PRIORITY_BELOW_NORMAL);
+	//		break;
 
-		case 2:
-			SetThreadPriority(hInst, THREAD_PRIORITY_ABOVE_NORMAL);
-			break;
+	//	case 2:
+	//		SetThreadPriority(hInst, THREAD_PRIORITY_ABOVE_NORMAL);
+	//		break;
 
-		case 3:
-			SetThreadPriority(hInst, THREAD_PRIORITY_HIGHEST);
-			break;
+	//	case 3:
+	//		SetThreadPriority(hInst, THREAD_PRIORITY_HIGHEST);
+	//		break;
 
-		case 5:
-			SetThreadPriority(hInst, THREAD_PRIORITY_TIME_CRITICAL);
-			break;
-	}
+	//	case 5:
+	//		SetThreadPriority(hInst, THREAD_PRIORITY_TIME_CRITICAL);
+	//		break;
+	//}
 
-	Put_Info("   Gens Initialized", 1); // Modif N. -- added mainly to clear out some message gunk
+	//Put_Info("   Gens Initialized", 1); // Modif N. -- added mainly to clear out some message gunk
 
 	Gens_Running = 1;
 
@@ -2215,7 +2215,7 @@ int PASCAL WinMain(HINSTANCE hInst,	HINSTANCE hPrevInst, LPSTR lpCmdLine, int nC
 
 	InitMovie(&MainMovie);
 
-	Init(hInst, nCmdShow);
+	Init(/*hInst, nCmdShow*/);
 
 	// Have to do it *before* load by command line
 	Init_Genesis_Bios();

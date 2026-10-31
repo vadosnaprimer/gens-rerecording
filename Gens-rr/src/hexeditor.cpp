@@ -40,7 +40,7 @@ struct HexParameters
 }
 Hex =
 {
-	0, 15, Hex.FontHeight / 2, Hex.FontBold ? 600 : 400,					// font
+	0, 15, Hex.FontHeight / 2, Hex.FontBold ? 600U : 400U,					// font
 	8, 0, Hex.FontWidth * 8, Hex.FontHeight + Hex.GapFontV,					// gaps
 	Hex.FontHeight + Hex.GapFontV, Hex.FontWidth * 2 + Hex.GapFontH,		// cell size
 	0, 0, Hex.CellWidth * 17 + Hex.GapHeaderH, (Hex.CellHeight + 2) * 17,	// dialog pos and size

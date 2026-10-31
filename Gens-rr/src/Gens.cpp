@@ -743,7 +743,7 @@ void Detect_Country_Genesis(void)
 // can overwrite what this does (in the cases where that system does initialize it).
 // the reset functions shouldn't call this at all,
 // it's correct that those don't fully reset the emulation state.
-static void Misc_Genesis_Init()
+void Misc_Genesis_Init()
 {
 	//M_Z80.CycleCnt = 0;
 	memset(&M_Z80.AF, 0, sizeof(M_Z80.CycleSup) + ((char*)&M_Z80.CycleSup - (char*)&M_Z80.AF));

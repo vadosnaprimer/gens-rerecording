@@ -2651,7 +2651,7 @@ DEFINE_LUA_FUNCTION(joy_peekup, "[controller=1]")
 static const struct ColorMapping
 {
 	const char* name;
-	int value;
+	unsigned int value;
 }
 s_colorMapping [] =
 {
