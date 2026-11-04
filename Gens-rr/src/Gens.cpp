@@ -790,7 +790,7 @@ void Init_Genesis_Bios(void)
 {
 	Misc_Genesis_Init();
 
-	FILE *f;
+	/*FILE *f;
 
 	if (f = fopen(Genesis_Bios, "rb"))
 	{
@@ -798,7 +798,7 @@ void Init_Genesis_Bios(void)
 		Byte_Swap(&Genesis_Rom[0], 2 * 1024);
 		fclose(f);
 	}
-	else memset(Genesis_Rom, 0, 2 * 1024);
+	else*/ memset(Genesis_Rom, 0, 2 * 1024);
 
 	Rom_Size =  2 * 1024;
 	memcpy(Rom_Data, Genesis_Rom, 2 * 1024);
@@ -828,7 +828,7 @@ int Init_Genesis(struct Rom *MD_Rom)
 	Debug = Paused = Frame_Number = 0;
 	SRAM_Start = SRAM_End = SRAM_ON = SRAM_Write = 0;
 	Controller_1_COM = Controller_2_COM = 0;
-
+/* SRAM
 	if (!Kaillera_Client_Running)
 	{
 		if ((MD_Rom->Ram_Infos[8] == 'R') && (MD_Rom->Ram_Infos[9] == 'A') && (MD_Rom->Ram_Infos[10] & 0x40))
@@ -862,7 +862,7 @@ int Init_Genesis(struct Rom *MD_Rom)
 
 		Load_SRAM();
 	}
-	
+*/	
 	switch(Country)
 	{
 		default:
@@ -902,7 +902,7 @@ int Init_Genesis(struct Rom *MD_Rom)
 		if(Str_Err[i] == Str_Err[i+1] && Str_Err[i] == ' ')
 			strcpy(Str_Err+i, Str_Err+i+1), i--;
 
-	SetWindowText(HWnd, Str_Err);
+	//SetWindowText(HWnd, Str_Err);
 
 	VDP_Num_Vis_Lines = 224;
 	Gen_Version = 0x20 + 0x0;	 	// Version de la megadrive (0x0 - 0xF)
@@ -952,7 +952,7 @@ int Init_Genesis(struct Rom *MD_Rom)
 		else Play_Sound();
 	}
 
-	Load_Patch_File();
+	//Load_Patch_File();
 	Build_Main_Menu();
 
 	Last_Time = GetTickCount();

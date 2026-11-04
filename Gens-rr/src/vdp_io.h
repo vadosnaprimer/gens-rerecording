@@ -1,4 +1,5 @@
 #ifdef __cplusplus
+#pragma once
 extern "C" {
 #endif
 

@@ -4892,6 +4892,8 @@ HMENU Build_Context_Menu(void)
 
 HMENU Build_Main_Menu(void)
 {
+	return NULL;
+
 	unsigned int Flags;
 	int i, j, Rend;
 
