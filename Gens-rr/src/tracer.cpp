@@ -164,7 +164,7 @@ void Print_Instruction( FILE *trace )
 	fprintf( trace, "%c", (main68k_context.sr & 0x02)?'V':'v' );
 	fprintf( trace, "%c", (main68k_context.sr & 0x01)?'C':'c' );
 
-	fprintf( trace, "\n", String );
+	fprintf( trace, "\n" );
 }
 
 static void GensTrace_trace()

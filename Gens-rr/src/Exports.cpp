@@ -23,6 +23,8 @@ GENS_EXPORT int gens_init(char *rom, int romLength)
 {
 	int interleaved = 0;
 	
+	Bits32 = 1;
+
 	Init();
 	Init_Genesis_Bios();
 	
@@ -46,12 +48,9 @@ GENS_EXPORT int gens_init(char *rom, int romLength)
 	Fill_Infos();
 	Game = My_Rom;
 	Genesis_Started = Init_Genesis(Game);
-	Recalculate_Palettes();
 	//FrameCount = 0;
 	//LagCount = 0;
-	
-	Bits32 = 1;
-	Do_VDP_Refresh();
+	Correct_256_Aspect_Ratio = 0;
 
 	return 0;
 }
@@ -59,23 +58,19 @@ GENS_EXPORT int gens_init(char *rom, int romLength)
 GENS_EXPORT bool gens_advance(int *vbuff)
 {
 	Update_Frame();
+	unsigned int *Source = MD_Screen32 + 8;
 
-	int mode = 2;
-	int X = IS_FULL_X_RESOLUTION ? 320 : 256;
 	int Y = IS_FULL_Y_RESOLUTION ? 240 : 224;
-	int i = (X * Y * 3) + 54;
-	memset(vbuff, 0, i);
+	int X = IS_FULL_X_RESOLUTION ? 320 : 256;
 
-	MakeBitmapHeader((unsigned char *)vbuff, i);
-	MakeBitmapInfo((unsigned char *)vbuff + 14, X, Y);
-
-	WriteFrame(
-		(unsigned char*)MD_Screen32,
-		(unsigned char *)vbuff + 54,
-		mode,
-		IS_FULL_X_RESOLUTION,
-		IS_FULL_Y_RESOLUTION,
-		X, Y);
+	for (int y = 0; y < Y; y++)
+	{
+		for (int x = 0; x < X; x++)
+		{
+			*vbuff++ = *Source++;
+		}
+		Source += 16;
+	}
 
 	return false;
 }

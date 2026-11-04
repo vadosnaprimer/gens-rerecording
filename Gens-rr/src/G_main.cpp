@@ -1876,7 +1876,7 @@ BOOL Init(/*HINSTANCE hInst, int nCmdShow*/)
 
 	//strcpy(Str_Tmp, Gens_Path);
 	//strcat(Str_Tmp, "\\gens.cfg");
-	//Load_Config(Str_Tmp, NULL);
+	Load_Config(Str_Tmp, NULL);
 
 	//ShowWindow(HWnd, nCmdShow);
 

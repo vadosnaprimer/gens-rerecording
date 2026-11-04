@@ -155,7 +155,7 @@ void Print_Instruction_cd( FILE *trace )
 	fprintf( trace, "%c", (sub68k_context.sr & 0x02)?'V':'v' );
 	fprintf( trace, "%c", (sub68k_context.sr & 0x01)?'C':'c' );
 
-	fprintf( trace, "\n", String );
+	fprintf( trace, "\n" );
 }
 
 static void GensTrace_cd_trace()
