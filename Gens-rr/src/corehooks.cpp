@@ -47,10 +47,16 @@ defhooks(dword)
 defvramhooks(byte)
 defvramhooks(word)
 
+extern void (*biz_execcb)(unsigned addr);
+
 void hook_exec()
 {
 	hook_pc &= 0xFFFFFF;
-	GensTrace();
+
+	if (biz_execcb)
+		biz_execcb(hook_pc);
+
+	//GensTrace();
 }
 void hook_exec_cd()
 {

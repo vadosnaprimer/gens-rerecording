@@ -7,6 +7,7 @@
 #include "vdp_rend.h"
 #include "G_ddraw.h"
 #include "io.h"
+#include "Cpu_68k.h"
 
 #define GENS_EXPORT extern "C" __declspec(dllexport)
 
@@ -17,6 +18,17 @@ extern int (*Update_Frame)();
 extern void Init_Genesis_Bios();
 extern void De_Interleave();
 extern void Fill_Infos();
+
+void (*biz_execcb)(unsigned addr) = NULL;
+void (*biz_readcb)(unsigned addr) = NULL;
+void (*biz_writecb)(unsigned addr) = NULL;
+
+GENS_EXPORT void gens_set_mem_callback(void (*read)(unsigned), void (*write)(unsigned), void (*exec)(unsigned))
+{
+	biz_readcb = read;
+	biz_writecb = write;
+	biz_execcb = exec;
+}
 
 GENS_EXPORT int gens_init(char *rom, int romLength)
 {
@@ -109,4 +121,34 @@ GENS_EXPORT char gens_peek_m68k(int addr)
 GENS_EXPORT char gens_peek_rom(int addr)
 {
 	return Rom_Data[addr ^ 1];
+}
+
+typedef struct
+{
+	unsigned int value;
+	const char *name;
+} gpregister_t;
+
+GENS_EXPORT int gens_getregs(gpregister_t* regs)
+{
+	int ret = 0;
+	regs->name = "M68K D0";  regs->value = main68k_context.areg[0]; regs++; ret++;
+	regs->name = "M68K D1";  regs->value = main68k_context.areg[1]; regs++; ret++;
+	regs->name = "M68K D2";  regs->value = main68k_context.areg[2]; regs++; ret++;
+	regs->name = "M68K D3";  regs->value = main68k_context.areg[3]; regs++; ret++;
+	regs->name = "M68K D4";  regs->value = main68k_context.areg[4]; regs++; ret++;
+	regs->name = "M68K D5";  regs->value = main68k_context.areg[5]; regs++; ret++;
+	regs->name = "M68K D6";  regs->value = main68k_context.areg[6]; regs++; ret++;
+	regs->name = "M68K D7";  regs->value = main68k_context.areg[7]; regs++; ret++;
+	regs->name = "M68K A0";  regs->value = main68k_context.dreg[0]; regs++; ret++;
+	regs->name = "M68K A1";  regs->value = main68k_context.dreg[1]; regs++; ret++;
+	regs->name = "M68K A2";  regs->value = main68k_context.dreg[2]; regs++; ret++;
+	regs->name = "M68K A3";  regs->value = main68k_context.dreg[3]; regs++; ret++;
+	regs->name = "M68K A4";  regs->value = main68k_context.dreg[4]; regs++; ret++;
+	regs->name = "M68K A5";  regs->value = main68k_context.dreg[5]; regs++; ret++;
+	regs->name = "M68K A6";  regs->value = main68k_context.dreg[6]; regs++; ret++;
+	regs->name = "M68K A7";  regs->value = main68k_context.dreg[7]; regs++; ret++;
+	regs->name = "M68K PC";  regs->value = main68k_context.pc;      regs++; ret++;
+	regs->name = "M68K SR";  regs->value = main68k_context.sr;      regs++; ret++;
+	return ret;
 }
