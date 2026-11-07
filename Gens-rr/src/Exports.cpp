@@ -115,7 +115,7 @@ GENS_EXPORT bool gens_advance(int *vbuff, int input)
 
 GENS_EXPORT char gens_peek_m68k(int addr)
 {
-	return Ram_68k[addr];
+	return Ram_68k[addr ^ 1];
 }
 
 GENS_EXPORT char gens_peek_rom(int addr)
