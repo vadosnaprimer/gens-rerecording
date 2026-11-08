@@ -139,22 +139,22 @@ typedef struct
 GENS_EXPORT int gens_getregs(gpregister_t* regs)
 {
 	int ret = 0;
-	regs->name = "M68K D0";  regs->value = main68k_context.areg[0]; regs++; ret++;
-	regs->name = "M68K D1";  regs->value = main68k_context.areg[1]; regs++; ret++;
-	regs->name = "M68K D2";  regs->value = main68k_context.areg[2]; regs++; ret++;
-	regs->name = "M68K D3";  regs->value = main68k_context.areg[3]; regs++; ret++;
-	regs->name = "M68K D4";  regs->value = main68k_context.areg[4]; regs++; ret++;
-	regs->name = "M68K D5";  regs->value = main68k_context.areg[5]; regs++; ret++;
-	regs->name = "M68K D6";  regs->value = main68k_context.areg[6]; regs++; ret++;
-	regs->name = "M68K D7";  regs->value = main68k_context.areg[7]; regs++; ret++;
-	regs->name = "M68K A0";  regs->value = main68k_context.dreg[0]; regs++; ret++;
-	regs->name = "M68K A1";  regs->value = main68k_context.dreg[1]; regs++; ret++;
-	regs->name = "M68K A2";  regs->value = main68k_context.dreg[2]; regs++; ret++;
-	regs->name = "M68K A3";  regs->value = main68k_context.dreg[3]; regs++; ret++;
-	regs->name = "M68K A4";  regs->value = main68k_context.dreg[4]; regs++; ret++;
-	regs->name = "M68K A5";  regs->value = main68k_context.dreg[5]; regs++; ret++;
-	regs->name = "M68K A6";  regs->value = main68k_context.dreg[6]; regs++; ret++;
-	regs->name = "M68K A7";  regs->value = main68k_context.dreg[7]; regs++; ret++;
+	regs->name = "M68K A0";  regs->value = main68k_context.areg[0]; regs++; ret++;
+	regs->name = "M68K A1";  regs->value = main68k_context.areg[1]; regs++; ret++;
+	regs->name = "M68K A2";  regs->value = main68k_context.areg[2]; regs++; ret++;
+	regs->name = "M68K A3";  regs->value = main68k_context.areg[3]; regs++; ret++;
+	regs->name = "M68K A4";  regs->value = main68k_context.areg[4]; regs++; ret++;
+	regs->name = "M68K A5";  regs->value = main68k_context.areg[5]; regs++; ret++;
+	regs->name = "M68K A6";  regs->value = main68k_context.areg[6]; regs++; ret++;
+	regs->name = "M68K A7";  regs->value = main68k_context.areg[7]; regs++; ret++;
+	regs->name = "M68K D0";  regs->value = main68k_context.dreg[0]; regs++; ret++;
+	regs->name = "M68K D1";  regs->value = main68k_context.dreg[1]; regs++; ret++;
+	regs->name = "M68K D2";  regs->value = main68k_context.dreg[2]; regs++; ret++;
+	regs->name = "M68K D3";  regs->value = main68k_context.dreg[3]; regs++; ret++;
+	regs->name = "M68K D4";  regs->value = main68k_context.dreg[4]; regs++; ret++;
+	regs->name = "M68K D5";  regs->value = main68k_context.dreg[5]; regs++; ret++;
+	regs->name = "M68K D6";  regs->value = main68k_context.dreg[6]; regs++; ret++;
+	regs->name = "M68K D7";  regs->value = main68k_context.dreg[7]; regs++; ret++;
 	regs->name = "M68K PC";  regs->value = main68k_context.pc;      regs++; ret++;
 	regs->name = "M68K SR";  regs->value = main68k_context.sr;      regs++; ret++;
 	return ret;
