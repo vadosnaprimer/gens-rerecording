@@ -8,6 +8,7 @@
 #include "G_ddraw.h"
 #include "io.h"
 #include "Cpu_68k.h"
+#include "save.h"
 
 #define GENS_EXPORT extern "C" __declspec(dllexport)
 
@@ -18,6 +19,8 @@ extern int (*Update_Frame)();
 extern void Init_Genesis_Bios();
 extern void De_Interleave();
 extern void Fill_Infos();
+extern void Export_Genesis(unsigned char* Data);
+extern int Import_Genesis(unsigned char* Data);
 
 void (*biz_execcb)(unsigned addr) = NULL;
 void (*biz_readcb)(unsigned addr) = NULL;
@@ -68,10 +71,9 @@ GENS_EXPORT int gens_init(char *rom, int romLength)
 	return 0;
 }
 
-GENS_EXPORT bool gens_advance(int *vbuff, int input)
+GENS_EXPORT void gens_get_video(int* vbuff)
 {
-	Update_Frame();
-	unsigned int *Source = MD_Screen32 + 8;
+	unsigned int* Source = MD_Screen32 + 8;
 
 	int Y = IS_FULL_Y_RESOLUTION ? 240 : 224;
 	int X = IS_FULL_X_RESOLUTION ? 320 : 256;
@@ -84,6 +86,11 @@ GENS_EXPORT bool gens_advance(int *vbuff, int input)
 		}
 		Source += 16;
 	}
+}
+
+GENS_EXPORT bool gens_advance(int input)
+{
+	Update_Frame();
 	
 	Controller_1_Up    = (input & (1 << 0x00)) ? 0 : 1;
 	Controller_1_Down  = (input & (1 << 0x01)) ? 0 : 1;
@@ -151,4 +158,15 @@ GENS_EXPORT int gens_getregs(gpregister_t* regs)
 	regs->name = "M68K PC";  regs->value = main68k_context.pc;      regs++; ret++;
 	regs->name = "M68K SR";  regs->value = main68k_context.sr;      regs++; ret++;
 	return ret;
+}
+
+GENS_EXPORT void gens_state_save(void *dest)
+{
+	memset(dest, 0, GENESIS_STATE_LENGTH);
+	Export_Genesis((unsigned char *)dest);
+}
+
+GENS_EXPORT void gens_state_load(void *src)
+{
+	Import_Genesis((unsigned char *)src);
 }
