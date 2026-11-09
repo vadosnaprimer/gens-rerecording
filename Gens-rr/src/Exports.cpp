@@ -6,6 +6,7 @@
 #include "vdp_io.h"
 #include "vdp_rend.h"
 #include "G_ddraw.h"
+#include "G_dsound.h"
 #include "io.h"
 #include "Cpu_68k.h"
 #include "save.h"
@@ -21,10 +22,14 @@ extern void De_Interleave();
 extern void Fill_Infos();
 extern void Export_Genesis(unsigned char* Data);
 extern int Import_Genesis(unsigned char* Data);
+extern void Dump_Sound_Stereo(short* Dest, int length);
 
 void (*biz_execcb)(unsigned addr) = NULL;
 void (*biz_readcb)(unsigned addr) = NULL;
 void (*biz_writecb)(unsigned addr) = NULL;
+
+static short soundbuffer[4096];
+static int nsamples;
 
 GENS_EXPORT void gens_set_mem_callback(void (*read)(unsigned), void (*write)(unsigned), void (*exec)(unsigned))
 {
@@ -88,9 +93,20 @@ GENS_EXPORT void gens_get_video(int* vbuff)
 	}
 }
 
+GENS_EXPORT void gens_get_audio(int *n, void **buffer)
+{
+	if (n)
+		*n = nsamples;
+	if (buffer)
+		*buffer = soundbuffer;
+}
+
 GENS_EXPORT bool gens_advance(int input)
 {
+	Lag_Frame = 1;
 	Update_Frame();
+	nsamples = Seg_Length;
+	Dump_Sound_Stereo((short *)soundbuffer, Seg_Length);
 	
 	Controller_1_Up    = (input & (1 << 0x00)) ? 0 : 1;
 	Controller_1_Down  = (input & (1 << 0x01)) ? 0 : 1;
@@ -117,7 +133,7 @@ GENS_EXPORT bool gens_advance(int input)
 	Controller_2_Z     = (input & (1 << 0x1a)) ? 0 : 1;
 	Controller_2_Mode  = (input & (1 << 0x1b)) ? 0 : 1;
 
-	return false;
+	return Lag_Frame == 1;
 }
 
 GENS_EXPORT char gens_peek_m68k(int addr)
