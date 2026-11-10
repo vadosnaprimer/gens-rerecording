@@ -104,14 +104,7 @@ GENS_EXPORT void gens_get_audio(int *n, void **buffer)
 GENS_EXPORT bool gens_advance(int input)
 {
 	Lag_Frame = 1;
-	Update_Frame();
-	//nsamples = Seg_Length;
-	//Dump_Sound_Stereo((short *)soundbuffer, Seg_Length);
-	//unsigned char Buf_Tmp[882 * 4 + 16];
-	Write_Sound_Buffer(soundbuffer);
-	nsamples = Seg_Length;
-	if (Sound_Stereo) nsamples *= 2;
-	
+
 	Controller_1_Up    = (input & (1 << 0x00)) ? 0 : 1;
 	Controller_1_Down  = (input & (1 << 0x01)) ? 0 : 1;
 	Controller_1_Left  = (input & (1 << 0x02)) ? 0 : 1;
@@ -136,6 +129,11 @@ GENS_EXPORT bool gens_advance(int input)
 	Controller_2_Y     = (input & (1 << 0x19)) ? 0 : 1;
 	Controller_2_Z     = (input & (1 << 0x1a)) ? 0 : 1;
 	Controller_2_Mode  = (input & (1 << 0x1b)) ? 0 : 1;
+
+	Update_Frame();
+
+	nsamples = Seg_Length;
+	Dump_Sound_Stereo(soundbuffer, Seg_Length);
 
 	return Lag_Frame == 1;
 }
