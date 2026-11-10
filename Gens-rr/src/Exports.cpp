@@ -105,8 +105,12 @@ GENS_EXPORT bool gens_advance(int input)
 {
 	Lag_Frame = 1;
 	Update_Frame();
+	//nsamples = Seg_Length;
+	//Dump_Sound_Stereo((short *)soundbuffer, Seg_Length);
+	//unsigned char Buf_Tmp[882 * 4 + 16];
+	Write_Sound_Buffer(soundbuffer);
 	nsamples = Seg_Length;
-	Dump_Sound_Stereo((short *)soundbuffer, Seg_Length);
+	if (Sound_Stereo) nsamples *= 2;
 	
 	Controller_1_Up    = (input & (1 << 0x00)) ? 0 : 1;
 	Controller_1_Down  = (input & (1 << 0x01)) ? 0 : 1;

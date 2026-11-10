@@ -1096,7 +1096,7 @@ int	Change_Sound(HWND hWnd)
 	}
 	else
 	{
-		if (!Init_Sound(hWnd))
+		if (Init_Sound(hWnd))
 		{
 			Sound_Enable = 0;
 			YM2612_Enable = 0;
@@ -1110,7 +1110,7 @@ int	Change_Sound(HWND hWnd)
 		}
 
 		Sound_Enable = 1;
-		Play_Sound();
+		//Play_Sound();
 
 		if (!(Z80_State & 1)) Change_Z80(hWnd);
 
@@ -1121,7 +1121,7 @@ int	Change_Sound(HWND hWnd)
 		PWM_Enable = 1;
 		CDDA_Enable = 1;
 
-		MESSAGE_L("Sound Enabled", "Sound Enabled")
+		//MESSAGE_L("Sound Enabled", "Sound Enabled")
 	}
 
 	Build_Main_Menu();

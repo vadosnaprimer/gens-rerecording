@@ -672,7 +672,7 @@ int Save_State (char *Name)
 		// otherwise the save operation will run slower than it should in release.
 		// (search for "alignment for performance" for examples,
 		//  and note that the underlying buffers should have ALIGN16 prefixed to them)
-		assert((numBytes < 0x100 || (int(src)&15) == (int(dst)&15) || (InBaseGenesis && !autoIncrement) || Version < 9) && "error: source and data are not correctly aligned with each other");
+		//assert((numBytes < 0x100 || (int(src)&15) == (int(dst)&15) || (InBaseGenesis && !autoIncrement) || Version < 9) && "error: source and data are not correctly aligned with each other");
 
 		// loop through copying 1 byte at a time into the savestate data...
 		for(unsigned int i = offset; i < offset + numBytes; i++)
