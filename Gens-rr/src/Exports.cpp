@@ -130,6 +130,12 @@ GENS_EXPORT bool gens_advance(int input)
 	Controller_2_Z     = (input & (1 << 0x1a)) ? 0 : 1;
 	Controller_2_Mode  = (input & (1 << 0x1b)) ? 0 : 1;
 
+	for(int i = 0; i < Seg_Length; i++)
+	{
+		Seg_L[i] = 0;
+		Seg_R[i] = 0;
+	}
+
 	Update_Frame();
 
 	nsamples = Seg_Length;
